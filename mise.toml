@@ -1,0 +1,5 @@
+# The pre-commit toolchain, pinned so local hooks and the pr-checks workflow
+# run identical versions. terraform is also what the operator applies with.
+[tools]
+terraform = "1.16.5"
+pre-commit = "4.6.1"

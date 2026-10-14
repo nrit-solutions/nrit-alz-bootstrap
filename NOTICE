@@ -1,0 +1,8 @@
+NRIT ALZ bootstrap
+Copyright 2026 NRIT Solutions B.V.
+
+Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+The runner-image/github-runner-aca folder contains files copied from
+Azure/avm-container-images-cicd-agents-and-runners, under that project's
+license.

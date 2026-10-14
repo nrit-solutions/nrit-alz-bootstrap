@@ -1,0 +1,35 @@
+# Install once with `pre-commit install`. The same hooks run on every pull
+# request in .github/workflows/pr-checks.yml, so a commit made without them
+# is caught there rather than reaching main.
+#
+# Two hooks guard against leaks: a Terraform plan file embeds the full state,
+# including every secret the bootstrap writes, and a private key block never
+# belongs in this repository.
+minimum_pre_commit_version: "3.5.0"
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-merge-conflict
+      - id: check-added-large-files
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+        args: [--fix=lf]
+      - id: trailing-whitespace
+        exclude: \.md$
+      - id: check-yaml
+
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.108.1
+    hooks:
+      - id: terraform_fmt
+
+  - repo: local
+    hooks:
+      - id: no-plan-files
+        name: No Terraform plan files
+        entry: Terraform plan files embed the full state. Write plans to $TMPDIR and never commit them.
+        language: fail
+        files: (^|/)tfplan

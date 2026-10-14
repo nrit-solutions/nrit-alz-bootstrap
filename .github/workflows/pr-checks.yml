@@ -1,0 +1,44 @@
+# Pull-request checks: the repository's own pre-commit hooks (fail) and the
+# changelog reminder (warn only).
+name: pr-checks
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Changelog reminder
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          changed="$(git diff --name-only "$BASE_SHA"...HEAD)"
+          if grep -qvE '\.md$' <<<"$changed" && ! grep -qx 'CHANGELOG.md' <<<"$changed"; then
+            echo "::warning file=CHANGELOG.md::This PR changes code but not CHANGELOG.md. Append to [Unreleased], or ignore this if the change is invisible to operators."
+          fi
+
+      # installs terraform and pre-commit at the versions mise.toml pins
+      - uses: jdx/mise-action@v4.2.3
+        with:
+          version: 2026.9.2
+          cache: true
+
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit-${{ runner.os }}-${{ hashFiles('.pre-commit-config.yaml') }}
+
+      # Only the files this PR changes: main is already clean, every merge
+      # passed this same gate.
+      - run: pre-commit run --from-ref "$BASE_SHA" --to-ref HEAD --show-diff-on-failure --color=always
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
