@@ -44,6 +44,25 @@ absolute path both work.
 
 ## Running it
 
+### Workstation
+
+The scripts are bash and need `az`, `gh`, `jq`, `terraform`, `curl` and
+`python3` on the path. macOS and Linux run them as they are. On Windows use
+one of:
+
+- **The dev container** in `.devcontainer/`, with VS Code and Docker Desktop.
+  It carries the pinned toolchain and mounts the parent folder, so a sibling
+  operator repo (`../<msp>-operator/customers/<customer>.tfvars`) is reachable
+  as on a workstation. Port 8787 is forwarded for `scripts/create-github-app.sh`.
+  The container home is not persistent: write App keys (`-k`) to a path under
+  the mounted folder that the operator repo ignores, not to `~`.
+- **WSL** (Ubuntu) with the same tools installed. Works like Linux.
+
+Git Bash runs `create-backend.sh` and `onboard.sh` but is not supported:
+`chmod 600` does nothing on NTFS, so the App key is not protected, and the
+Windows `az` wrapper can mangle path arguments. PowerShell and cmd do not run
+the scripts.
+
 Follow [Run it](https://docs.nrit.cloud/setup/bootstrap/#run-it). In short:
 `scripts/create-backend.sh`, the `terraform init` it prints, then
 `scripts/onboard.sh`.

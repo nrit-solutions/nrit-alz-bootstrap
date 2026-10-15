@@ -13,5 +13,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- A dev container (`.devcontainer/`) with the pinned toolchain for operators
+  on Windows, and a Workstation section in the README that states what the
+  scripts need and which Windows setups work. No apply needed.
 - This repository was published on 2026-10-14 from the private operator
   repository. It carries no earlier history. No apply needed.
