@@ -19,7 +19,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   init creates the state blob of a unit that has never been applied
   (nrit-tf-pr-ops#429). Needs a targeted apply per customer, no keys required:
   `terraform apply -var-file=<tfvars> -target='azurerm_role_assignment.state_blob["plan"]'`.
-  Expect one role assignment replaced.
+  Expect one role assignment replaced. The replacement deletes a role
+  assignment under the locked state resource group, so lift the lock first
+  and put it back after: `az lock delete -n state-cannot-delete -g
+  rg-cicd-state-<region>`, the targeted apply, then
+  `terraform apply -var-file=<tfvars> -target=azurerm_management_lock.state`.
+  Applied to nrit and the sandbox on 2026-10-15.
 
 ### Added
 
