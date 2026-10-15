@@ -1,7 +1,7 @@
 # Customer bootstrap
 
 The bootstrap is the first thing an operator runs to onboard a new customer. It
-is the NRIT equivalent of the Azure Landing Zone accelerator's bootstrap phase,
+is the equivalent of the Azure Landing Zone accelerator's bootstrap phase,
 built as reusable Terraform. It runs once per customer, from a workstation,
 against the customer tenant, and stands up everything the customer's
 infrastructure-live repository needs before any pipeline can run.

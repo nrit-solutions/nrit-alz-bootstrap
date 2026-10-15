@@ -123,7 +123,7 @@ module "runners" {
       dockerfile_path      = "Dockerfile"
       context_path         = "https://github.com/nrit-solutions/nrit-alz-bootstrap#${var.runner_image_commit}:runner-image/github-runner-aca"
       context_access_token = coalesce(var.runner_image_context_token, var.github_token)
-      image_names          = ["github-runner:nrit-${substr(var.runner_image_commit, 0, 7)}"]
+      image_names          = ["github-runner:alz-${substr(var.runner_image_commit, 0, 7)}"]
     }
     } : {
     container_app = {

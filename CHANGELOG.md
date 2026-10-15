@@ -11,6 +11,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Neutral wording where the MSP reads it: the build-from-source runner image is
+  tagged `github-runner:alz-<sha>` instead of `nrit-<sha>`, the Dockerfile
+  marker is `# Platform additions`, and the README, `runner-image.tf` and the
+  dev container no longer name NRIT. The tag change only affects the
+  build-from-source fallback; the default digest import is untouched.
+
 ### Fixed
 
 - The plan identity is back on Storage Blob Data Contributor on the state
