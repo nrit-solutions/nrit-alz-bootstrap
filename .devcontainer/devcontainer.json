@@ -1,0 +1,21 @@
+{
+  "name": "nrit-alz-bootstrap",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
+  "features": {
+    "ghcr.io/devcontainers/features/azure-cli:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/terraform:1": { "version": "1.16.5" }
+  },
+  "workspaceMount": "source=${localWorkspaceFolder}/..,target=/workspaces,type=bind,consistency=cached",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "forwardPorts": [8787],
+  "portsAttributes": {
+    "8787": { "label": "create-github-app.sh redirect", "onAutoForward": "silent" }
+  },
+  "postCreateCommand": "sudo apt-get update -qq && sudo apt-get install -y -qq jq python3 pipx && pipx install pre-commit==4.6.1 && pipx ensurepath && pre-commit install",
+  "customizations": {
+    "vscode": {
+      "extensions": ["hashicorp.terraform", "ms-azuretools.vscode-azurecli"]
+    }
+  }
+}
