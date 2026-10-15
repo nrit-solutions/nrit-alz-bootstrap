@@ -7,7 +7,7 @@ the prebuilt signed image `ghcr.io/nrit-solutions/alz-runner` by digest (see
 Vendored from `Azure/avm-container-images-cicd-agents-and-runners` at ref
 `9b4c292` (the `github-runner-aca` folder), the same source and ref the
 `avm-ptn-cicd-agents-and-runners` module builds by default. Everything above
-the `# NRIT additions` marker in the `Dockerfile` is upstream and unchanged.
+the `# Platform additions` marker in the `Dockerfile` is upstream and unchanged.
 The four helper scripts (`install_actions.sh`, `token.sh`, `entrypoint.sh`,
 `app_token.sh`) are copied verbatim.
 
@@ -34,4 +34,4 @@ repository README.
 ## Re-syncing upstream
 
 To pick up a newer base runner image: re-copy the upstream files at a new ref,
-re-apply the `# NRIT additions` layer, and bump `runner_image_commit`.
+re-apply the `# Platform additions` layer, and bump `runner_image_commit`.

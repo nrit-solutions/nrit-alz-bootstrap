@@ -1,7 +1,7 @@
 # Runner image: import the prebuilt signed image into an in-tenant registry.
 #
-# Default path for self_hosted_private. NRIT builds, scans, signs, and
-# publishes the runner image once (nrit-alz-runner-image ->
+# Default path for self_hosted_private. The image is built, scanned, signed and
+# published once (nrit-alz-runner-image ->
 # ghcr.io/nrit-solutions/alz-runner); the bootstrap imports the pinned digest
 # into a small bootstrap-owned ACR with the server-side importImage action.
 # No docker, no GitHub token, and no cross-tenant PAT stored in the customer
