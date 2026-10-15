@@ -11,6 +11,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Fixed
+
+- The plan identity is back on Storage Blob Data Contributor on the state
+  container. With Storage Blob Data Reader (2026-10-12, nrit-tf-pr-ops#413)
+  every pull request that adds a unit failed at `terraform init`, because
+  init creates the state blob of a unit that has never been applied
+  (nrit-tf-pr-ops#429). Needs a targeted apply per customer, no keys required:
+  `terraform apply -var-file=<tfvars> -target='azurerm_role_assignment.state_blob["plan"]'`.
+  Expect one role assignment replaced.
+
 ### Added
 
 - A dev container (`.devcontainer/`) with the pinned toolchain for operators
