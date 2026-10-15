@@ -29,9 +29,11 @@ the operator detail the site does not cover.
 | `github.tf` | The customer repository from the template, its variables, secrets, environments, Actions allow-list, secret scanning, and merge-gate ruleset, plus `live/customer.hcl` and `.github/CODEOWNERS` written once |
 | `runners.tf`, `runner-image.tf`, `state-private-endpoint.tf` | Self-hosted runners and private state access, on `self_hosted_private` only |
 
-The plan identity has Storage Blob Data Reader on the state container and the
-apply identity has Storage Blob Data Contributor. The plan side reads state
-without the lease, so every caller must be on tf-pr-ops v10.2.0 or later.
+Both identities have Storage Blob Data Contributor on the state container. The
+plan identity needs write for a unit that has never been applied, because
+`terraform init` creates that unit's state blob; a read-only plan identity
+fails every pull request that adds a unit (nrit-tf-pr-ops#429). The plan side
+still runs without the state lease on callers at tf-pr-ops v10.2.0 or later.
 Details are in
 [What it creates](https://docs.nrit.cloud/setup/bootstrap-reference/#what-it-creates).
 
