@@ -124,7 +124,8 @@ amba_action_group_email = "alerts@customer.example" # monitored inbox for every 
 # signed image (ghcr.io/nrit-solutions/alz-runner) into a bootstrap-owned
 # registry by digest; no token of any kind is needed. Pin the release per
 # customer so it is on record which version they run; both values come from
-# the same nrit-alz-runner-image release:
+# the same release, listed at
+# https://docs.nrit.cloud/reference/versions/#runner-image-pin:
 # runner_image_version = "2.0.0"
 # runner_image_digest  = "sha256:..."
 

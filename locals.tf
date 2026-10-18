@@ -46,7 +46,7 @@ locals {
   customer_hcl = <<-EOT
     # customer.hcl
     #
-    # Customer values for this live tree, written once by nrit-alz-bootstrap.
+    # Customer values for this live tree, written once by the bootstrap.
     # This repository owns the file from here on: edit it freely, the bootstrap
     # never writes it again.
 
@@ -71,7 +71,7 @@ locals {
 
   codeowners = <<-EOT
     # Code owners for this infrastructure-live repository, written once by
-    # nrit-alz-bootstrap. This repository owns the file from here on.
+    # the bootstrap. This repository owns the file from here on.
     #
     # With require_code_owner_review on in the bootstrap's ruleset, a pull
     # request touching a path below needs an approval from its owner.
