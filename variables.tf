@@ -481,13 +481,13 @@ variable "container_app_polling_interval_seconds" {
 }
 
 variable "runner_image_repository" {
-  description = "Public registry path of the prebuilt signed runner image, without tag or digest. The default is the NRIT-published image; nrit-alz-runner-image holds its contents, signatures, and changelog. Only used when runner_image_commit is null."
+  description = "Public registry path of the prebuilt signed runner image, without tag or digest. The default is the NRIT-published image; its current release is listed at https://docs.nrit.cloud/reference/versions/#runner-image-pin. Only used when runner_image_commit is null."
   type        = string
   default     = "ghcr.io/nrit-solutions/alz-runner"
 }
 
 variable "runner_image_version" {
-  description = "Version (image tag) of the prebuilt runner image. Recorded as the target tag in the in-tenant registry so an operator can read which image version a customer runs. Must belong together with runner_image_digest; take both from the same nrit-alz-runner-image release."
+  description = "Version (image tag) of the prebuilt runner image. Recorded as the target tag in the in-tenant registry so an operator can read which image version a customer runs. Must belong together with runner_image_digest; take both from the same release, listed at https://docs.nrit.cloud/reference/versions/#runner-image-pin."
   type        = string
   default     = "2.0.0"
 }

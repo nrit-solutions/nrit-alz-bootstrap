@@ -18,21 +18,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   marker is `# Platform additions`, and the README, `runner-image.tf` and the
   dev container no longer name NRIT. The tag change only affects the
   build-from-source fallback; the default digest import is untouched.
+- Generated `live/customer.hcl` and `.github/CODEOWNERS` say "written once by
+  the bootstrap", and comments, variable descriptions and the example tfvars
+  no longer cite private repositories or issues. The runner image pin points
+  at the public versions page. No apply needed: both files are written once
+  and the bootstrap ignores later content changes, so existing repositories
+  see no diff.
 
 ### Fixed
 
 - The plan identity is back on Storage Blob Data Contributor on the state
-  container. With Storage Blob Data Reader (2026-10-12, nrit-tf-pr-ops#413)
-  every pull request that adds a unit failed at `terraform init`, because
-  init creates the state blob of a unit that has never been applied
-  (nrit-tf-pr-ops#429). Needs a targeted apply per customer, no keys required:
+  container. With Storage Blob Data Reader (since 2026-10-12) every pull
+  request that adds a unit failed at `terraform init`, because init creates
+  the state blob of a unit that has never been applied. Needs a targeted
+  apply per customer, no keys required:
   `terraform apply -var-file=<tfvars> -target='azurerm_role_assignment.state_blob["plan"]'`.
   Expect one role assignment replaced. The replacement deletes a role
   assignment under the locked state resource group, so lift the lock first
   and put it back after: `az lock delete -n state-cannot-delete -g
   rg-cicd-state-<region>`, the targeted apply, then
   `terraform apply -var-file=<tfvars> -target=azurerm_management_lock.state`.
-  Applied to nrit and the sandbox on 2026-10-15.
 
 ### Added
 

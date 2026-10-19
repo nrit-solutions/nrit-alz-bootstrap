@@ -114,8 +114,8 @@ resource "azapi_resource" "state_container" {
 
 # Both identities write state. The plan identity needs it for a unit that has
 # never been applied: terraform init creates that unit's state blob, which a
-# reader cannot do (nrit-tf-pr-ops#429). Until the engine plans such a unit
-# without a backend, read-only on the plan side (#413) is not workable.
+# reader cannot do. Until the engine plans such a unit without a backend, a
+# read-only plan identity is not workable.
 resource "azurerm_role_assignment" "state_blob" {
   for_each             = azurerm_user_assigned_identity.cicd
   scope                = azapi_resource.state_container.id

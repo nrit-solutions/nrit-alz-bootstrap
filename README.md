@@ -32,7 +32,7 @@ the operator detail the site does not cover.
 Both identities have Storage Blob Data Contributor on the state container. The
 plan identity needs write for a unit that has never been applied, because
 `terraform init` creates that unit's state blob; a read-only plan identity
-fails every pull request that adds a unit (nrit-tf-pr-ops#429). The plan side
+fails every pull request that adds a unit. The plan side
 still runs without the state lease on callers at tf-pr-ops v10.2.0 or later.
 Details are in
 [What it creates](https://docs.nrit.cloud/setup/bootstrap-reference/#what-it-creates).
