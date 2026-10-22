@@ -13,14 +13,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
-- The `allowed_actions` default also allows `nrit-solutions/tfpr@*` and
-  `nrit-solutions/tfpr/*`, next to the current `tf-pr-ops` entries. The engine
-  is being renamed to `tfpr`, and a consumer can only move to the renamed
-  entrypoint once its repository allows it. Additive: the `tf-pr-ops` entries
-  stay until every consumer has moved. Apply once per customer:
-  `terraform apply -var-file=<customer>.tfvars -target=github_actions_repository_permissions.live`.
-  It needs the GitHub auth only; the target leaves the App key secrets alone.
-
 - Neutral wording where the MSP reads it: the build-from-source runner image is
   tagged `github-runner:alz-<sha>` instead of `nrit-<sha>`, the Dockerfile
   marker is `# Platform additions`, and the README, `runner-image.tf` and the
@@ -54,3 +46,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   scripts need and which Windows setups work. No apply needed.
 - This repository was published on 2026-10-14 from the private operator
   repository. It carries no earlier history. No apply needed.
+
+## [2026-10-22]
+
+### Changed
+
+- The `allowed_actions` default also allows `nrit-solutions/tfpr@*` and
+  `nrit-solutions/tfpr/*`, next to the current `tf-pr-ops` entries. The engine
+  is being renamed to `tfpr`, and a consumer can only move to the renamed
+  entrypoint once its repository allows it. Additive: the `tf-pr-ops` entries
+  stay until every consumer has moved. Applied per customer with:
+  `terraform apply -var-file=<customer>.tfvars -target=github_actions_repository_permissions.live`.
