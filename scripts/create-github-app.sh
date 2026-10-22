@@ -41,7 +41,7 @@ Options:
   -p, --preset NAME    bootstrap or checks.
   -k, --key-file PATH  Where to save the private key (mode 600). Must not exist.
   -n, --name NAME      App name, unique across GitHub, at most 34 characters.
-                       Default: alz-bootstrap-<org> or tf-pr-ops-<org>.
+                       Default: alz-bootstrap-<org> or tfpr-<org>.
       --port PORT      Localhost port for the redirect. Default 8787.
   -h, --help           Show this help.
 EOF
@@ -86,7 +86,7 @@ case "$preset" in
     }'
     ;;
   checks)
-    name="${name:-tf-pr-ops-${org}}"
+    name="${name:-tfpr-${org}}"
     public=false
     permissions='{"checks": "write"}'
     ;;

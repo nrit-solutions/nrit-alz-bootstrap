@@ -19,7 +19,7 @@ prebuilt image (2.0.0 and later) runs jobs as a non-root user with no `sudo`.
 ## Why vendored
 
 The self-hosted runner needs `python3`, `checkov` and `conftest` for the
-tf-pr-ops policy and scan hook gates. `checkov` is Python-only (no static
+tfpr policy and scan hook gates. `checkov` is Python-only (no static
 binary), so it has to live in the image. We vendor the upstream image folder
 and append one tools layer rather than fork the module.
 

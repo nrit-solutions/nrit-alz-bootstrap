@@ -123,7 +123,7 @@ resource "azurerm_role_assignment" "state_blob" {
   principal_id         = each.value.principal_id
 }
 
-# Both identities can use the tf-pr-ops cross-PR unit lock table (tfprlocks).
+# Both identities can use the tfpr cross-PR unit lock table (tfprlocks).
 # Account scope: the engine creates the table on first use, so no narrower
 # scope exists at assignment time.
 resource "azurerm_role_assignment" "state_table" {
