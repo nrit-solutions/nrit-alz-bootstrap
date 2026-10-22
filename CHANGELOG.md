@@ -13,15 +13,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
-- The engine is renamed to tfpr, and every consumer runs tfpr v12. The
-  `required_status_checks` default is `["tfpr / merge-gate"]`, and the
-  `allowed_actions` default drops the `nrit-solutions/tf-pr-ops` entries.
-  `scripts/create-github-app.sh` names a new checks App `tfpr-<org>` by
-  default. A customer whose tfvars sets `required_status_checks` explicitly
-  changes it after its engine bump, per the v12 release notes. Apply per
-  customer, after its callers run v12:
-  `terraform apply -var-file=<customer>.tfvars -target=github_actions_repository_permissions.live -target='github_repository_ruleset.require_approved_pr'`.
-  Applying it before the bump blocks every pull request on that repository.
 - Neutral wording where the MSP reads it: the build-from-source runner image is
   tagged `github-runner:alz-<sha>` instead of `nrit-<sha>`, the Dockerfile
   marker is `# Platform additions`, and the README, `runner-image.tf` and the
@@ -60,6 +51,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- The engine is renamed to tfpr, and every consumer runs tfpr v12. The
+  `required_status_checks` default is `["tfpr / merge-gate"]`, and the
+  `allowed_actions` default drops the `nrit-solutions/tf-pr-ops` entries.
+  `scripts/create-github-app.sh` names a new checks App `tfpr-<org>` by
+  default. A customer whose tfvars sets `required_status_checks` explicitly
+  changes it after its engine bump, per the v12 release notes. Applied per
+  customer, after its callers ran v12:
+  `terraform apply -var-file=<customer>.tfvars -target=github_actions_repository_permissions.live -target='github_repository_ruleset.require_approved_pr'`.
 - The `allowed_actions` default also allows `nrit-solutions/tfpr@*` and
   `nrit-solutions/tfpr/*`, next to the current `tf-pr-ops` entries. The engine
   is being renamed to `tfpr`, and a consumer can only move to the renamed
