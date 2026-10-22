@@ -44,7 +44,7 @@ RUN chmod +x /actions-runner/install_actions.sh \
   && rm /actions-runner/install_actions.sh \
   && chown runner /_work /actions-runner /opt/hostedtoolcache
 
-# Platform additions: policy/scan/cost tooling for the tf-pr-ops hook gates.
+# Platform additions: policy/scan/cost tooling for the tfpr hook gates.
 # conftest (static binary) and checkov (Python, no static binary) so the gates
 # run on the self-hosted runner. Everything above this line is the vendored AVM
 # github-runner-aca image at ref 9b4c292 (see README).

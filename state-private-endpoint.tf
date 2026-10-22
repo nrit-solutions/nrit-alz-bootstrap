@@ -48,7 +48,7 @@ resource "azurerm_private_endpoint" "state_blob" {
   }
 }
 
-# The tf-pr-ops cross-PR unit lock table (tfprlocks) lives on the same account.
+# The tfpr cross-PR unit lock table (tfprlocks) lives on the same account.
 # Private endpoints are per-subresource, so the blob endpoint above does not
 # cover the table service, and same-region traffic to the public table endpoint
 # bypasses IP firewall rules. Mirror the blob path for table.

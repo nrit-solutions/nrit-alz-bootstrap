@@ -4,7 +4,7 @@
 # the Azure and backend Action variables the pipelines consume, and configures
 # the plan and apply environments. The environments are limited to the default
 # branch but carry no reviewer rules; the pull-request ruleset gates the merge
-# and the engine gates /apply on the same review decision.
+# and the engine gates tfpr apply on the same review decision.
 
 resource "github_repository" "live" {
   name        = var.customer_repository_name
@@ -95,7 +95,7 @@ resource "github_team_repository" "approvers" {
 # environment:apply) matches the federated credential. They carry no reviewer
 # rules: GitHub only allows environment required-reviewers on private repositories
 # at higher plan tiers, whereas repository rulesets work on Team. So approval is
-# enforced in two portable places instead. The engine gates /apply on the pull
+# enforced in two portable places instead. The engine gates tfpr apply on the pull
 # request's review decision, and the ruleset below gates the merge.
 #
 # Both are limited to the default branch. The subject names only repository and
@@ -138,7 +138,7 @@ resource "github_actions_repository_permissions" "live" {
 
 # Merge gate: require an approved pull request, plus any configured status checks,
 # before anything merges to the default branch. This gates the merge, not the
-# apply: the engine applies from an /apply comment on the open PR and checks the
+# apply: the engine applies from an tfpr apply comment on the open PR and checks the
 # same review decision itself. Org admins may always bypass for break-glass;
 # ruleset_bypass_actors adds more, such as an operator team. A real
 # customer's approver team reviews the PR (it carries the plan output); they
@@ -185,7 +185,7 @@ resource "github_repository_ruleset" "require_approved_pr" {
     }
 
     # Apply-before-merge: require the terraform-pr-ops merge gate green (set by
-    # /apply, or success when nothing is affected) before a PR can merge. With
+    # tfpr apply, or success when nothing is affected) before a PR can merge. With
     # checks_app_id set, only that App's check run counts, so a same-named
     # check from a workflow cannot stand in for the engine's gate.
     dynamic "required_status_checks" {

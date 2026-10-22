@@ -38,10 +38,10 @@ apply_approvers          = ["some-github-user"]
 # github_app_installation_id = "<installation id>" # gh api orgs/<org>/installations
 # github_app_pem_file        = "~/keys/<app>.private-key.pem"
 
-# Apply-before-merge: a PR cannot merge until /apply has run green. This is the
+# Apply-before-merge: a PR cannot merge until tfpr apply has run green. This is the
 # recommended value. The bootstrap default is [], which requires no status check
 # at all, so leaving this out lets a PR merge with unapplied changes.
-required_status_checks = ["tf-pr-ops / merge-gate"]
+required_status_checks = ["tfpr / merge-gate"]
 
 # tfpr license (engine v9). The MSP license NRIT issued, the same on every
 # customer of the MSP. scripts/onboard.sh adds tfpr_entitlement for this
@@ -86,7 +86,7 @@ amba_action_group_email = "alerts@customer.example" # monitored inbox for every 
 # infracost_api_key_unmanaged = true
 
 # Merge gate: require an approved pull request to main (a branch ruleset).
-# Nothing applies on merge. The engine applies from an /apply comment on the open
+# Nothing applies on merge. The engine applies from an tfpr apply comment on the open
 # PR and checks the same review decision itself, so this ruleset gates the merge
 # and the engine gates the apply.
 # Default true. Set false only to skip the gate entirely.

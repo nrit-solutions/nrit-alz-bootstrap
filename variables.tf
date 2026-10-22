@@ -209,7 +209,7 @@ variable "apply_approvers" {
 }
 
 variable "require_approved_pr" {
-  description = "Gate the merge by requiring an approved pull request to the default branch (a branch ruleset). The engine gates /apply separately on the same review decision; there is no push trigger. Uses a ruleset rather than environment required-reviewers because rulesets work on the GitHub Team plan whereas private-repo environment protection does not. Org admins can bypass. Set false to skip the gate entirely."
+  description = "Gate the merge by requiring an approved pull request to the default branch (a branch ruleset). The engine gates tfpr apply separately on the same review decision; there is no push trigger. Uses a ruleset rather than environment required-reviewers because rulesets work on the GitHub Team plan whereas private-repo environment protection does not. Org admins can bypass. Set false to skip the gate entirely."
   type        = bool
   default     = true
 }
@@ -256,17 +256,15 @@ variable "ruleset_bypass_actors" {
 }
 
 variable "required_status_checks" {
-  description = "Status-check contexts the pull-request ruleset requires green before merge. The default is [\"tf-pr-ops / merge-gate\"], the apply-before-merge model: a PR cannot merge until /apply has run (the engine seeds it success when nothing is affected). Only applies when require_approved_pr is true."
+  description = "Status-check contexts the pull-request ruleset requires green before merge. The default is [\"tfpr / merge-gate\"], the apply-before-merge model: a PR cannot merge until tfpr apply has run (the engine seeds it success when nothing is affected). Only applies when require_approved_pr is true."
   type        = list(string)
-  default     = ["tf-pr-ops / merge-gate"]
+  default     = ["tfpr / merge-gate"]
 }
 
 variable "allowed_actions" {
-  description = "Action patterns the customer repository may run, next to GitHub-owned actions (github_actions_repository_permissions, allowed_actions = selected). The default covers the engine's reusable workflows and composite actions under both the current name tf-pr-ops and the coming name tfpr (the path form owner/repo/* is what matches them) and the third-party actions those workflows use: jdx/mise-action, azure/login, hashicorp/setup-terraform and asdf-vm/actions. A workflow that uses any other action fails to load, so an engine release that adopts a new action lists it in its release notes and this default follows."
+  description = "Action patterns the customer repository may run, next to GitHub-owned actions (github_actions_repository_permissions, allowed_actions = selected). The default covers the engine's reusable workflows and composite actions (the path form owner/repo/* is what matches them) and the third-party actions those workflows use: jdx/mise-action, azure/login, hashicorp/setup-terraform and asdf-vm/actions. A workflow that uses any other action fails to load, so an engine release that adopts a new action lists it in its release notes and this default follows."
   type        = list(string)
   default = [
-    "nrit-solutions/tf-pr-ops@*",
-    "nrit-solutions/tf-pr-ops/*",
     "nrit-solutions/tfpr@*",
     "nrit-solutions/tfpr/*",
     "jdx/mise-action@*",
