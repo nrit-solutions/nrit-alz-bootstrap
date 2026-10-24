@@ -124,6 +124,9 @@ license_id=$(jq -r '.jti' <<<"$license_claims")
 msp=$(jq -r '.sub' <<<"$license_claims")
 org_id=$(curl -fsS "https://api.github.com/orgs/${org}" | jq -r '.id')
 [[ "$org_id" =~ ^[0-9]+$ ]] || die "could not read the id of GitHub organization $org."
+if gh api "repos/${org}/${repo}" --silent 2>/dev/null && ! terraform state list github_repository.live | grep -q .; then
+  die "$org/$repo already exists, but this bootstrap did not create it. The bootstrap stamps the repository from the template itself. Delete the existing repository (for example one made with \"Use this template\"), or set another customer_repository_name."
+fi
 
 echo "Customer:     $customer ($org/$repo)"
 echo "Tenant:       $tenant_id"

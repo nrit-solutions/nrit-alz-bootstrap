@@ -94,7 +94,9 @@ scripts/onboard.sh -f ../<msp>-operator/customers/<customer>.tfvars   # add --ye
    the private repository.
 3. Runs `terraform plan`, asks y/N, and applies that plan. A plan with no
    changes skips straight to the check. It first stops when the initialised
-   backend is another customer's bootstrap state account.
+   backend is another customer's bootstrap state account, or when the
+   customer repository already exists on GitHub but is not in this state
+   (for example one made with "Use this template").
 4. Checks that both repository variables hold the expected values and that
    the revocation list names neither token.
 
