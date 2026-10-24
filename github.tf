@@ -138,7 +138,7 @@ resource "github_actions_repository_permissions" "live" {
 
 # Merge gate: require an approved pull request, plus any configured status checks,
 # before anything merges to the default branch. This gates the merge, not the
-# apply: the engine applies from an tfpr apply comment on the open PR and checks the
+# apply: the engine applies from a tfpr apply comment on the open PR and checks the
 # same review decision itself. Org admins may always bypass for break-glass;
 # ruleset_bypass_actors adds more, such as an operator team. A real
 # customer's approver team reviews the PR (it carries the plan output); they
@@ -184,7 +184,7 @@ resource "github_repository_ruleset" "require_approved_pr" {
       required_review_thread_resolution = false
     }
 
-    # Apply-before-merge: require the terraform-pr-ops merge gate green (set by
+    # Apply-before-merge: require the tfpr / merge-gate check green (set by
     # tfpr apply, or success when nothing is affected) before a PR can merge. With
     # checks_app_id set, only that App's check run counts, so a same-named
     # check from a workflow cannot stand in for the engine's gate.

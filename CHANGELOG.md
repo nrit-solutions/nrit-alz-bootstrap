@@ -13,6 +13,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- `scripts/onboard.sh` stops before the plan when the customer repository
+  already exists on GitHub but is not in the bootstrap state, for example one
+  made with "Use this template". It names the fix (delete it or pick another
+  `customer_repository_name`) instead of failing the apply on a name clash.
+  Re-runs for an onboarded customer are unaffected. `github.tf` comments name
+  the `tfpr / merge-gate` check. No apply needed.
 - Neutral wording where the MSP reads it: the build-from-source runner image is
   tagged `github-runner:alz-<sha>` instead of `nrit-<sha>`, the Dockerfile
   marker is `# Platform additions`, and the README, `runner-image.tf` and the
