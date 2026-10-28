@@ -11,6 +11,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Added
+
+- `SECURITY.md` names private vulnerability reporting on this repository as
+  the route for security problems, with scope and response times. No apply
+  needed.
+
 ### Changed
 
 - `scripts/onboard.sh` stops before the plan when the customer repository
