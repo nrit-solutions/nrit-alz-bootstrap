@@ -19,6 +19,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- The PR checks workflow pins `jdx/mise-action` by full commit SHA, like its
+  other actions, so the repository can require SHA-pinned actions. No apply
+  needed.
 - `scripts/onboard.sh` stops before the plan when the customer repository
   already exists on GitHub but is not in the bootstrap state, for example one
   made with "Use this template". It names the fix (delete it or pick another
