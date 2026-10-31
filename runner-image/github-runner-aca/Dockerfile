@@ -48,8 +48,8 @@ RUN chmod +x /actions-runner/install_actions.sh \
 # conftest (static binary) and checkov (Python, no static binary) so the gates
 # run on the self-hosted runner. Everything above this line is the vendored AVM
 # github-runner-aca image at ref 9b4c292 (see README).
-ARG CHECKOV_VERSION=3.3.8
-ARG CONFTEST_VERSION=0.68.2
+ARG CHECKOV_VERSION=3.4.0
+ARG CONFTEST_VERSION=0.71.1
 RUN apt-get update \
   && apt-get install -y --no-install-recommends python3 python3-pip \
   && rm -rf /var/lib/apt/lists/*
