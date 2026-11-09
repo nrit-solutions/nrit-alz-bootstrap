@@ -334,7 +334,7 @@ variable "business_unit" {
 }
 
 variable "amba_action_group_email" {
-  description = "Monitored inbox every Azure Monitor Baseline Alert routes to, written to live/customer.hcl. Required when write_customer_hcl is true."
+  description = "Monitored inbox every Azure Monitor Baseline Alert routes to, written to live/customer.hcl, and the address the self-hosted runner failure alert emails. Required when write_customer_hcl is true. Null on the self_hosted_private posture means no runner failure alert."
   type        = string
   default     = null
   validation {
