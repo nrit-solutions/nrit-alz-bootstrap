@@ -13,6 +13,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- A failed runner execution now emails `amba_action_group_email`: one action
+  group and one metric alert on the runner Container Apps job, for the
+  `self_hosted_private` posture on Container Apps. Needs a manual apply:
+  `terraform apply -var-file=<tfvars> -target='azurerm_monitor_metric_alert.runner_failed_executions'`.
 - `SECURITY.md` names private vulnerability reporting on this repository as
   the route for security problems, with scope and response times. No apply
   needed.
