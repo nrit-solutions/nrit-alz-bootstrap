@@ -19,6 +19,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- A new stamp waits 120 seconds between the runner environment and the runner
+  job, as the runners module did for its own environment. An existing stamp
+  adds only the wait resource on its next apply.
 - The bootstrap now creates the runner Container Apps environment itself, with
   its logs destination set to `azure-monitor`, and the runners module no longer
   creates a Log Analytics workspace. The module's workspace could not receive
