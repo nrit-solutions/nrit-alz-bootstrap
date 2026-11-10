@@ -25,7 +25,7 @@ resource "azurerm_monitor_metric_alert" "runner_failed_executions" {
   description         = "A self-hosted runner execution failed after its retries. Jobs may be stuck in the queue. Check the executions of the runner Container Apps job."
   severity            = 1
   frequency           = "PT5M"
-  window_size         = "PT15M"
+  window_size         = "PT1H"
   tags                = var.tags
 
   criteria {
