@@ -19,6 +19,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- The build-from-source fallback image (`runner_image_commit`) starts the
+  runner through `run.sh`, like the published image since 2.3.0, so a runner
+  GitHub asks to update re-launches instead of leaving its job queued. Only
+  customers on the fallback see it, on their next rebuild from a
+  `runner_image_commit` that includes this change.
 - The build-from-source fallback image (`runner_image_commit`) takes checkov
   3.4.0 and conftest 0.71.1, matching the published runner image 2.1.0. Only
   customers on the fallback see it, on their next rebuild from a

@@ -66,4 +66,5 @@ COPY token.sh entrypoint.sh app_token.sh /
 RUN chmod +x /token.sh /entrypoint.sh /app_token.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["./bin/Runner.Listener", "run", "--startuptype", "service"]
+# run.sh re-launches the listener after a runner self-update; a direct start exits and leaves the job queued.
+CMD ["./run.sh"]
