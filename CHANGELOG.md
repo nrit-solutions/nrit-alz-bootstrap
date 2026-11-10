@@ -19,6 +19,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- The bootstrap now creates the runner Container Apps environment itself, with
+  its logs destination set to `azure-monitor`, and the runners module no longer
+  creates a Log Analytics workspace. The module's workspace could not receive
+  logs from the private runner network, so runner logs were never stored.
+  Runner logs now follow the environment's diagnostic settings, and the
+  bootstrap sets none. The landing zone's `Deploy-Diag-LogsCat` policy adds
+  one, but on a new stamp the environment exists before the policy, so run a
+  remediation task after the landing zones apply. Until then the logs are not
+  stored. Needs a manual apply on an
+  existing stamp. Move the state first, or the plan replaces the environment
+  and the job:
+  `terraform state mv 'module.runners[0].azapi_resource.container_app_environment[0]' 'azapi_resource.runner_environment[0]'`,
+  then `terraform apply -var-file=<tfvars> -target='module.runners' -target='azapi_resource.runner_environment'`.
 - The build-from-source fallback image (`runner_image_commit`) starts the
   runner through `run.sh`, like the published image since 2.3.0, so a runner
   GitHub asks to update re-launches instead of leaving its job queued. Only

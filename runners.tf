@@ -52,6 +52,37 @@ resource "azurerm_public_ip" "runner_egress" {
   tags                = var.tags
 }
 
+# The module hard-codes the log-analytics destination, so the environment is ours: azure-monitor lets the landing zone's diagnostic policy route runner logs.
+resource "azapi_resource" "runner_environment" {
+  count     = local.use_private_networking && var.runner_compute_type == "azure_container_app" ? 1 : 0
+  type      = "Microsoft.App/managedEnvironments@2024-10-02-preview"
+  name      = "cae-runner-${var.location_short}"
+  parent_id = azurerm_resource_group.runners[0].id
+  location  = var.location
+  tags      = var.tags
+
+  body = {
+    properties = {
+      appLogsConfiguration = {
+        destination = "azure-monitor"
+      }
+      vnetConfiguration = {
+        infrastructureSubnetId = module.runners[0].container_app_subnet_resource_id
+        internal               = true
+      }
+      workloadProfiles = [
+        {
+          name                = "Consumption"
+          workloadProfileType = "Consumption"
+        }
+      ]
+      infrastructureResourceGroup = "rg-runner-${var.location_short}-container-apps-infrastructure"
+    }
+  }
+
+  depends_on = [azapi_resource_action.register_container_apps]
+}
+
 module "runners" {
   count   = local.use_private_networking ? 1 : 0
   source  = "Azure/avm-ptn-cicd-agents-and-runners/azurerm"
@@ -66,6 +97,10 @@ module "runners" {
   # rather than the module default group rg-<postfix>.
   resource_group_creation_enabled = false
   parent_id                       = azurerm_resource_group.runners[0].id
+
+  container_app_environment_creation_enabled = false
+  container_app_environment_id               = try(azapi_resource.runner_environment[0].id, null)
+  log_analytics_workspace_creation_enabled   = false
 
   # GitHub, repo-scoped runners. Default auth is the runners GitHub App: the
   # KEDA scaler and the runner registration mint short-lived installation
