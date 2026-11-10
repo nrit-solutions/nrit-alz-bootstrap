@@ -83,6 +83,15 @@ resource "azapi_resource" "runner_environment" {
   depends_on = [azapi_resource_action.register_container_apps]
 }
 
+# Replaces the module's own settle delay, which only follows an environment the module creates.
+resource "time_sleep" "runner_environment_settle" {
+  count           = length(azapi_resource.runner_environment)
+  create_duration = "120s"
+  triggers = {
+    environment_id = azapi_resource.runner_environment[0].id
+  }
+}
+
 module "runners" {
   count   = local.use_private_networking ? 1 : 0
   source  = "Azure/avm-ptn-cicd-agents-and-runners/azurerm"
@@ -99,7 +108,7 @@ module "runners" {
   parent_id                       = azurerm_resource_group.runners[0].id
 
   container_app_environment_creation_enabled = false
-  container_app_environment_id               = try(azapi_resource.runner_environment[0].id, null)
+  container_app_environment_id               = try(time_sleep.runner_environment_settle[0].triggers["environment_id"], null)
   log_analytics_workspace_creation_enabled   = false
 
   # GitHub, repo-scoped runners. Default auth is the runners GitHub App: the
